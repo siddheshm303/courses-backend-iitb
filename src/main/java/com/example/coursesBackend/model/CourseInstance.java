@@ -9,12 +9,14 @@ public class CourseInstance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "\"year\"")
     private int year;
     private int semester;
 
     @ManyToOne
     private Course course;
 
+    //Getters and Setters
     public Long getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package com.example.coursesBackend.controller;
 
 import com.example.coursesBackend.model.Course;
+import com.example.coursesBackend.model.CourseInstance;
 import com.example.coursesBackend.repository.CourseInstanceRepository;
 import com.example.coursesBackend.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,11 +70,43 @@ public class CourseController {
     }
 
     //POST /api/instances
+    @PostMapping("/instances")
+    public ResponseEntity<?> createInstance(@RequestBody CourseInstance instance) {
+        Course course = courseRepo.findById(instance.getCourse().getCourseId()).orElse(null);
+        if (course == null)
+            return ResponseEntity.badRequest()
+                    .body("Invalid Course ID: " + instance.getCourse().getCourseId());
+
+        instance.setCourse(course);
+        return ResponseEntity.ok(instanceRepo.save(instance));
+
+    }
 
     //GET /api/instances/{year}/{sem}
+    @GetMapping("/instances/{year}/{sem}")
+    public ResponseEntity<List<CourseInstance>> getInstance(@PathVariable int year,@PathVariable int sem) {
+        return ResponseEntity.ok(instanceRepo.findByYearAndSemester(year,sem));
+    }
 
     //GET /api/instances/{year}/{sem}/{id}
+    @GetMapping("/instances/{year}/{sem}/{id}")
+    public ResponseEntity<?> getInstanceDetails(@PathVariable int year,@PathVariable int sem, @PathVariable String id) {
+        CourseInstance instance = instanceRepo.findByYearAndSemesterAndCourse_CourseId(year,sem,id);
+        if (instance == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Instance not found");
+
+        return ResponseEntity.ok(instance);
+
+    }
 
     //DELETE /api/instances/{year}/{sem}/{id}
+    @DeleteMapping("/instances/{year}/{sem}/{id}")
+    public ResponseEntity<?> deleteInstance(@PathVariable int year,@PathVariable int sem,@PathVariable String id){
+        CourseInstance instance = instanceRepo.findByYearAndSemesterAndCourse_CourseId(year, sem, id);
+        if (instance == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Instance not found.");
+        instanceRepo.delete(instance);
+        return ResponseEntity.ok("Instance deleted successfully.");
+    }
 
 }
