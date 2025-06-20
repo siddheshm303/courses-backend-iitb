@@ -77,8 +77,20 @@ public class CourseController {
             return ResponseEntity.badRequest()
                     .body("Invalid Course ID: " + instance.getCourse().getCourseId());
 
+        CourseInstance existingInstance = instanceRepo.findByYearAndSemesterAndCourse_CourseId(
+                instance.getYear(),instance.getSemester(), instance.getCourse().getCourseId()
+        );
+
+        if (existingInstance == null){
+
         instance.setCourse(course);
         return ResponseEntity.ok(instanceRepo.save(instance));
+        }else {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Course instance already exists for this course in the given year and semester.");
+
+        }
+
 
     }
 
