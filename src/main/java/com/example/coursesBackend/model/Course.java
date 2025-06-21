@@ -8,7 +8,6 @@ import java.util.List;
 public class Course {
 
     @Id
-    @Column(unique = true)
     private String courseId;
 
     private String title;

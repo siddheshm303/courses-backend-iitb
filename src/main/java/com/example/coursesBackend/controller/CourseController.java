@@ -98,12 +98,6 @@ public class CourseController {
         }
     }
 
-    //GET /api/instances
-    @GetMapping("/instances")
-    public ResponseEntity<List<CourseInstance>> getAllInstances(){
-        return ResponseEntity.ok(instanceRepo.findAll());
-    }
-
     //GET /api/instances/{year}/{sem}
     @GetMapping("/instances/{year}/{sem}")
     public ResponseEntity<List<CourseInstance>> getInstance(@PathVariable int year,@PathVariable int sem) {
