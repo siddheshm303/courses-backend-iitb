@@ -108,7 +108,6 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Instance not found");
 
         return ResponseEntity.ok(instance);
-
     }
 
     //DELETE /api/instances/{year}/{sem}/{id}
