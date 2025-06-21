@@ -27,6 +27,12 @@ public class CourseController {
     //POST /api/courses
     @PostMapping("/courses")
     public ResponseEntity<?> createCourse(@RequestBody Course course){
+
+        //Check if course already exists
+        if (courseRepo.existsById(course.getCourseId())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("Course ID already exists: " + course.getCourseId());
+        }
         List<Course> validPrereqs = new ArrayList<>();
         for (Course prereq : course.getPrerequisites()){
             Course found = courseRepo.findById(prereq.getCourseId()).orElse(null);
@@ -90,8 +96,12 @@ public class CourseController {
                     .body("Course instance already exists for this course in the given year and semester.");
 
         }
+    }
 
-
+    //GET /api/instances
+    @GetMapping("/instances")
+    public ResponseEntity<List<CourseInstance>> getAllInstances(){
+        return ResponseEntity.ok(instanceRepo.findAll());
     }
 
     //GET /api/instances/{year}/{sem}
