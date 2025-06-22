@@ -43,8 +43,16 @@ docker-compose up --build
 ```
 
 ## 🧑‍💻 Author
+### Siddhesh Vilas Mulik
 
-**Siddhesh Vilas Mulik** <br>
-📧 siddheshm303@gmail.com <br>
-🌍 Thane, Maharashtra <br>
-🌐 [GitHub Profile](https://github.com/siddheshm303)
+📧 siddheshm303@gmail.com
+
+🌍 Thane, Maharashtra
+
+🌐 GitHub Profile
+
+## 📜 License
+This project is for educational/internship purposes only.
+
+
+---
