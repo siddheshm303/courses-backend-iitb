@@ -11,6 +11,7 @@ public class CourseInstance {
 
     @Column(name = "\"year\"")
     private int year;
+
     private int semester;
 
     @ManyToOne

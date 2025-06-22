@@ -67,10 +67,19 @@ public class CourseController {
     public ResponseEntity<?> deleteCourse(@PathVariable String id) {
         Optional<Course> course = courseRepo.findById(id);
         if(course.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
-        if(courseRepo.existsByPrerequisitesContaining(course.get())) {
+
+        Course courseGet = course.get();
+
+        if(courseRepo.existsByPrerequisitesContaining(courseGet)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Cannot delete course: it is a prerequisite for other course");
         }
+
+        //First delete instances of that course
+        List<CourseInstance> instances = instanceRepo.findByCourse(courseGet);
+        instanceRepo.deleteAll(instances);
+
+        //Then delete the course
         courseRepo.deleteById(id);
         return ResponseEntity.ok("Course Deleted Successfully");
     }
