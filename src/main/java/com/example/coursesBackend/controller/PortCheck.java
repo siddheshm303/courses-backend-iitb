@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PortCheck {
-    @GetMapping("/port-check")
+    @GetMapping("/api/port-check")
     public String portCheck(){
         return "Health is OK";
     }
