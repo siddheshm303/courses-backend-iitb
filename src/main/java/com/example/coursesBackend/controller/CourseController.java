@@ -33,6 +33,7 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Course ID already exists: " + course.getCourseId());
         }
+        
         List<Course> validPrereqs = new ArrayList<>();
         for (Course prereq : course.getPrerequisites()){
             Course found = courseRepo.findById(prereq.getCourseId()).orElse(null);

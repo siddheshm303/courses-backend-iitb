@@ -1,0 +1,22 @@
+name: CD Backend Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Backend Pipeline"]
+    types:
+      - completed
+
+jobs:
+
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Pull Docker image
+      run: sudo docker pull siddheshm303/backend-image:latest
+    - name: Delete old docker container
+      run: sudo docker rm -f cicd-spring-container || true
+    - name: Run Docker container
+      run: sudo docker run -d -p 8080:8080  --name cicd-spring-container siddheshm303/backend-image
+      
