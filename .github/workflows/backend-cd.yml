@@ -14,5 +14,5 @@ jobs:
     steps:
       - name: Deploy new containers
         run: |
-          bash /home/ubuntu/deployment/deploy.sh
+          sudo bash /home/ubuntu/deployment/deploy.sh
       
