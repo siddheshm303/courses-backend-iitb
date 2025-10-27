@@ -1,4 +1,4 @@
-# Courses Backend – IIT Bombay Internship
+# Courses Management Backend-Repo
 
 This is the backend REST API for the **Courses Management System** developed as part of the IIT Bombay Full Stack Internship Assignment. It is built using **Spring Boot** and provides endpoints to manage Courses and Course Instances.
 
