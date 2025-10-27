@@ -48,7 +48,6 @@ public class CourseController {
     //GET /api/courses
     @GetMapping("/courses")
     public ResponseEntity<List<Course>> getAllCourses(){
-
         return ResponseEntity.ok(courseRepo.findAll());
     }
 
